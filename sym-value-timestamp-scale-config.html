@@ -1,0 +1,78 @@
+<div class="c-side-pane t-toolbar">
+    <span class="config-section-header">{{::res.ShapeFillKeyword}}</span>
+</div>
+<div class="config-option-format"><pv-color-picker id="fill" ng-model="config.Fill"></pv-color-picker></div>
+
+<div class="c-side-pane t-toolbar">
+    <span class="config-section-header">{{::res.TextColorKeyword}}</span>
+</div>
+<div class="config-option-format"><pv-color-picker id="stroke" ng-model="config.Stroke"></pv-color-picker></div>
+
+<div class="c-side-pane t-toolbar">
+    <span class="config-section-header">{{::res.ValueTextColorKeyword}}</span>
+</div>
+<div class="config-option-format"><pv-color-picker id="value-stroke" ng-model="config.ValueStroke"></pv-color-picker></div>
+
+<!--Timestamp scale-->
+<div class="c-side-pane t-toolbar">
+    <span class="config-section-header">Timestamp Scale</span>
+</div>
+<div class="config-option-format">"Green" Time: Date.now()</div>
+<div class="config-option-format">"Red" Time: <input type="number" maxlength="3" ng-model="config.redTimeMinsAgo"> minutes ago</div>
+
+
+
+<div class="c-side-pane t-toolbar">
+    <span class="config-section-header">{{::res.ValueConfigTextVisibility}}</span>
+</div>
+<div class="c-config-content-vertical">
+    <label class="flex-align-center">
+        <input ng-disabled="!config.ShowValue && !config.ShowTime && !config.ShowIndicator" type="checkbox" class="c-config-checkbox"
+               ng-model="config.ShowLabel">{{::res.ValueConfigLabel}}<br />
+    </label>
+    <div class="inplace-combobox-wrapper" ng-show="config.ShowLabel">
+        <inplace-combo-box config="config" runtime-data="runtimeData"></inplace-combo-box>
+    </div>
+    <label class="flex-align-center" style="margin-top: 8px">
+        <input type="checkbox" class="c-config-checkbox"
+               ng-model="config.ShowUOM">{{::res.ValueConfigUom}}<br />
+    </label>
+    <label class="flex-align-center" style="margin-top: 8px">
+        <input ng-disabled="!config.ShowValue && !config.ShowLabel && !config.ShowIndicator" type="checkbox" class="c-config-checkbox"
+               ng-model="config.ShowTime">{{::res.ValueConfigTime}}<br />
+    </label>
+
+    <label class="flex-align-center" style="margin-top: 8px">
+        <input ng-disabled="!config.ShowTime && !config.ShowLabel && !config.ShowIndicator" type="checkbox" class="c-config-checkbox"
+               ng-model="config.ShowValue">{{::res.ValueConfigValueKeyword}}<br />
+    </label>
+</div>
+
+<div ng-show="(runtimeData.metaData && runtimeData.metaData.HasTarget) || config.ShowIndicator">
+    <div class="c-side-pane t-toolbar">
+        <span class="config-section-header">{{::res.TargetValueIndicatorSettingsConfig}}</span>
+    </div>
+    <div class="c-config-content-vertical">
+        <label class="flex-align-center">
+            <input ng-disabled="!config.ShowTime && !config.ShowLabel && !config.ShowValue" type="checkbox" class="c-config-checkbox"
+                   ng-model="config.ShowIndicator">{{::res.TargetValueIndicatorConfig}}<br />
+        </label>
+        <label ng-show="config.ShowIndicator" class="flex-align-center">
+            <input type="checkbox" class="c-config-checkbox"
+                   ng-model="config.ShowDifferential">{{::res.TargetValueIndicatorDiffConfig}}<br />
+        </label>
+
+        <label ng-show="config.ShowIndicator && config.ShowDifferential" class="flex-align-center">
+            <input type="radio" class="c-config-radio" ng-model="config.DifferentialType" name="DifferentialType" value="percent">{{::res.TargetDiffPercentConfig}}<br />
+        </label>
+        <label ng-show="config.ShowIndicator && config.ShowDifferential" class="flex-align-center">
+            <input type="radio" class="c-config-radio" ng-model="config.DifferentialType" name="DifferentialType" value="value">{{::res.TargetDiffValueConfig}}<br />
+        </label>
+        <label ng-show="config.ShowIndicator" class="flex-align-center">
+            <input type="checkbox" class="c-config-checkbox"
+                   ng-model="config.ShowTarget">{{::res.TargetValueConfig}}<br />
+        </label>
+    </div>
+    <div class="config-option-format"><pv-color-picker ng-show="config.ShowIndicator" id="indicator-up-color" colorkeyword="Up Color" ng-model="config.IndicatorFillUp">{{::res.TargetValueIndicatorUpColorConfig}}</pv-color-picker></div>
+    <div class="config-option-format"><pv-color-picker ng-show="config.ShowIndicator" id="indicator-down-color" colorkeyword="Down Color" ng-model="config.IndicatorFillDown">{{::res.TargetValueIndicatorDownColorConfig}}</pv-color-picker></div>
+</div>

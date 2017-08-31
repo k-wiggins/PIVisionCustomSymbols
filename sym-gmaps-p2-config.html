@@ -1,0 +1,66 @@
+<div class="c-side-pane t-toolbar">
+    <span style="color:#fff; margin-left:15px">Attributes Indexes Settings</span>
+</div>
+
+<div class="c-config-content">Latitude attribute index:
+    <input type="text" ng-model="config.LatIndex">
+</div>
+<div class="c-config-content">Longitude attribute index:
+    <input type="text" ng-model="config.LngIndex">
+</div>
+
+
+
+
+<div class="c-side-pane t-toolbar">
+    <span style="color:#fff; margin-left:15px">Marker Color</span>
+</div>
+<div class="config-option-format">
+    <pv-color-picker id="markerColor" ng-model="config.MarkerColor"></pv-color-picker>
+</div>
+
+
+<div class="c-side-pane t-toolbar">
+    <span style="color:#fff; margin-left:15px">Map Options</span>
+</div>
+
+<div class="c-config-content">
+    Show Zoom Control:
+    <input type="checkbox" ng-model="config.ZoomControl">
+</div>
+
+<div class="c-config-content">
+    Select Zoom level:
+    <input type="text" ng-model="config.ZoomLevel">
+</div>
+
+
+<div class="c-config-content">
+    Disable Default UI:
+    <input type="checkbox" ng-model="config.DisableDefaultUI">
+</div>
+
+<div class="c-config-content">
+    Show Scale Control:
+    <input type="checkbox" ng-model="config.ScaleControl">
+</div>
+
+<div class="c-config-content">
+    Show Street View Control:
+    <input type="checkbox" ng-model="config.StreetViewControl">
+</div>
+
+<div class="c-config-content">
+    Show Map Type Control:
+    <input type="checkbox" ng-model="config.MapTypeControl">
+</div>
+
+<div class="c-config-content">
+    Select Map Type:
+    <select name="singleSelect" ng-model="config.MapTypeId">
+        <option value="HYBRID">Hybrid</option>
+        <option value="TERRAIN">Terrain</option>
+        <option value="ROADMAP">Roadmap</option>
+        <option value="SATELLITE">Satellite</option>
+    </select><br>
+</div>

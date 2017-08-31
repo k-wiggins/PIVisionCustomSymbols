@@ -1,0 +1,62 @@
+<div class="c-side-pane t-toolbar">
+    <span style="color:#fff; margin-left:15px">Template: {{runtimeData.template}}</span>
+</div>
+<div class="c-side-pane t-toolbar">
+    <span style="color:#fff; margin-left:15px">Related Elements</span>
+</div>
+<div class="config-option-format">
+    <div class="trend-config-trace-list" tabindex="0" style="padding: 4px">
+        <div ng-repeat="item in runtimeData.assetList">
+            <label><input type="checkbox" ng-model="item.selected" ng-change="runtimeData.updateGraph()"/> {{item.Name}}</label>
+        </div>
+    </div>
+</div>
+<div class="c-side-pane t-toolbar">
+    <span style="color:#fff; margin-left:15px">Template Attributes</span>
+</div>
+<div class="config-option-format">
+    <div class="trend-config-trace-list" tabindex="0" style="padding: 4px">
+        <form>
+            <div ng-repeat="item in runtimeData.attributeList | orderBy: 'Name'">
+                <label>
+                    <input type="radio" ng-model="runtimeData.selectedAttribute" ng-value="item.Name" ng-change="runtimeData.updateData()"/>
+                    {{item.Name}}
+                </label>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="c-side-pane t-toolbar">
+    <span style="color:#fff; margin-left:15px">Histogram Format</span>
+</div>
+<div style="width: 85%; margin: 10px 0 15px 15px;">
+    <div class="config-option-single-row">
+        <div class="config-option-ie11-overflow-fix">
+            <div class="config-label" style="font-size:14px">Bins</div>
+            <input id="bins" class="config-option-single-row-input" 
+                style="width:100px; height:100%;" 
+                ng-model="config.BinNumber" 
+                ng-change="runtimeData.updateColor()" />
+        </div>
+    </div>
+    <div class="config-option-single-row">
+        <div class="config-option-ie11-overflow-fix">
+            <div class="config-label"style="font-size:14px" >Stale Data Label</div>
+            <input id="stale" type="checkbox" class="config-option-single-row-input" 
+                ng-model="config.StaleCheck" 
+                ng-change="runtimeData.updateColor()" />
+        </div>
+    </div>
+    <div class="config-option-single-row">
+        <div class="config-option-ie11-overflow-fix">
+            <div class="config-label" style="font-size:14px">Stale Range (Hours)</div>
+            <input id="bins" class="config-option-single-row-input" 
+                style="width:100px; height:100%;" 
+                ng-model="config.StaleRange" 
+                ng-change="runtimeData.updateColor()" />
+        </div>
+    </div>
+    <pv-color-picker id="foregroundcolor" colorkeyword="Foreground" ng-model="config.ForegroundColor" ng-change="runtimeData.updateColor()"></pv-color-picker>
+    <pv-color-picker id="backgroundcolor" colorkeyword="Background" ng-model="config.BackgroundColor" ng-change="runtimeData.updateColor()"></pv-color-picker>
+    <pv-color-picker id="highlightcolor" colorkeyword="Highlight" ng-model="config.HighlightColor" ng-change="runtimeData.updateColor()"></pv-color-picker>
+</div>

@@ -1,0 +1,90 @@
+<div title="{{tooltip}}">
+    <div ng-class="{'blink': Blink}" ng-style="{'height':valueSize + 'px'}" style="font-size:15px; white-space:nowrap; overflow:hidden; width:100%; top:0; position:relative;">
+        <div style="position:relative; top:50%; left:50%; transform:translate(-50%, -50%);">
+            <div ng-style="{color:config.Stroke, 'width':position.width+'px'}" class="gauge-value-text" ng-if="config.ShowLabel">
+                <span>{{runtimeData.valueLabel.displayName}}</span>
+            </div>
+            <br ng-if="config.ShowLabel" />
+            <div class="gauge-value-text" ng-style="{'width':position.width+'px',color:config.Stroke}" ng-show="config.ShowValue">
+                <span ng-style="{color:config.ValueStroke}" ng-bind="symValue"></span>
+                <span style="font-size:smaller;margin-left:1px;" ng-style="{color:config.Stroke}" ng-bind="valueMetaData.Units?'&nbsp;'+valueMetaData.Units:''" ng-show="config.ShowUOM"></span>
+            </div>
+            
+            <br ng-if="config.ShowComparison" />
+            <div class="gauge-value-text" ng-style="{'width':position.width+'px',color:config.Stroke}" ng-show="config.ShowComparison">
+                <span>Comparison Value:</span> <span ng-style="{color:config.ValueStroke}" ng-bind="config.ComparisonValue"></span> %
+                <!--<span style="font-size:smaller;margin-left:1px;" ng-style="{color:config.Stroke}" ng-bind="valueMetaData.Units?'&nbsp;'+valueMetaData.Units:''" ng-show="config.ShowUOM"></span>-->
+            </div>
+        </div>
+    </div>
+
+    <svg ng-class="{'blink': Blink}" ng-style="{'height':availableGaugeHeight+'px', 'top':valueSize+'px'}" style="position: absolute; width: 100%; top: 0; left: 0; overflow:visible">
+        <defs>
+            <pattern ng-attr-id="{{'diagonalHatch-'+symbol.Name}}" patternUnits="userSpaceOnUse" width="4" height="4" patternTransform="scale(3) rotate(-45 2 2)">
+                <path d="M -1,2 l 6,0" ng-attr-stroke="{{Fill || config.Fill}}" stroke-width="1"></path>
+            </pattern>
+        </defs>
+
+        <rect ng-attr-x="{{outerRectangle.x}}"
+              ng-attr-y="{{outerRectangle.y}}"
+              ng-attr-height="{{outerRectangle.height}}"
+              ng-attr-fill="{{config.Background}}"
+              ng-attr-stroke-width="{{0}}"
+              ng-attr-width="{{outerRectangle.width}}">
+        </rect>
+        <!--good range value-->
+        <rect ng-attr-x="{{goodRangeRectangle.x}}"
+              ng-attr-y="{{goodRangeRectangle.y}}"
+              fill="green"
+              ng-attr-height="{{goodRangeRectangle.height}}"
+              ng-attr-width="{{goodRangeRectangle.width}}">
+        </rect>
+        <!--warning range value-->
+        <rect ng-attr-x="{{warningRangeRectangle.x}}"
+              ng-attr-y="{{warningRangeRectangle.y}}"
+              fill="yellow"
+              ng-attr-height="{{warningRangeRectangle.height}}"
+              ng-attr-width="{{warningRangeRectangle.width}}">
+        </rect>
+        <!--Bad range value-->
+        <rect ng-attr-x="{{badRangeRectangle.x}}"
+              ng-attr-y="{{badRangeRectangle.y}}"
+              fill="red"
+              ng-attr-height="{{badRangeRectangle.height}}"
+              ng-attr-width="{{badRangeRectangle.width}}">
+        </rect>
+        <!--comparison value-->
+        <rect  ng-if="config.ShowComparisonValue" ng-attr-x="{{comparisonRectangle.x}}"
+            ng-attr-y="{{comparisonRectangle.y}}"
+            ng-attr-fill="{{IsGood !== false ? Fill || config.Fill : 'url(#diagonalHatch-'+symbol.Name+')'}}"
+            ng-attr-height="{{comparisonRectangle.height}}"
+            ng-attr-width="{{comparisonRectangle.width}}">
+        </rect>
+        <!--actual value-->
+        <rect ng-attr-x="{{indicatorRectangle.x}}"
+              ng-attr-y="{{indicatorRectangle.y}}"
+              ng-attr-fill="{{IsGood !== false ? Fill || config.Fill : 'url(#diagonalHatch-'+symbol.Name+')'}}"
+              ng-attr-height="{{indicatorRectangle.height}}"
+              ng-attr-width="{{indicatorRectangle.width}}">
+        </rect>
+
+        <path ng-attr-d="{{scaleTicks}}"
+              ng-attr-stroke="{{config.Stroke}}"
+              stroke-width="1"></path>
+
+        <rect ng-attr-x="{{outerRectangle.x}}"
+              ng-attr-y="{{outerRectangle.y}}"
+              ng-attr-width="{{outerRectangle.width}}"
+              ng-attr-height="{{outerRectangle.height}}"
+              fill="rgba(0,0,0,0)"
+              ng-attr-stroke="{{config.Stroke}}"
+              ng-attr-stroke-width="{{config.StrokeWidth}}"></rect>
+
+        <text ng-repeat="label in scaleLabels track by $index"
+              style="font-size: 12px;"
+              ng-attr-text-anchor="{{scaleLabelAlign}}"
+              ng-attr-fill="{{config.Stroke}}"
+              ng-attr-x="{{label.x}}"
+              ng-attr-y="{{label.y}}">{{label.value}}</text>
+    </svg>
+</div>

@@ -1,0 +1,28 @@
+<div style="overflow:hidden" ng-style="{background:(Fill || config.Fill), height:position.height}" title="{{tooltip}}">
+    <div class="value-symbol-portion-text" style="white-space:nowrap;text-align:left;overflow:hidden;" ng-style="{background: (Fill || config.Fill), 'font-size': fontSize}" ng-class="{'blink': Blink}">
+        <!--Name-->
+        <div class="text-symbol-sizing-line" style="display:table" ng-show="config.ShowLabel">
+            <span style="margin-right:2px" ng-style="{color:config.Stroke}" ng-bind="runtimeData.valueLabel.displayName"></span>
+        </div>
+        <!--value-->
+        <div class="text-symbol-sizing-line" style="display:table;" ng-show="config.ShowValue">
+            <span ng-style="{color:config.ValueStroke}" ng-bind="symValue"></span>
+            <span style="font-size:smaller;margin-left:1px;" ng-style="{color:config.Stroke}" ng-bind="valueMetaData.Units?'&nbsp;'+valueMetaData.Units:''" ng-show="config.ShowUOM"></span>
+        </div>
+        <!--Timestamp-->
+        <div class="text-symbol-sizing-line" style="display:table" ng-show="config.ShowTime">
+            <span ng-style="{color:symTimeColor}" ng-bind="symTime"></span>
+        </div>
+    </div>
+    <div ng-show="config.ShowIndicator">
+        <svg style="position:absolute;" ng-style="{'top':indicatorPosition.top, 'left':indicatorPosition.left}" ng-attr-width="{{indicatorPosition.width}}" ng-attr-height="{{indicatorPosition.height}}">
+            <polygon ng-attr-points="{{indicatorPosition.points}}" ng-attr-fill="{{IndicatorFill}}"></polygon>
+            <path ng-attr-d="{{indicatorPosition.alternateStatePath}}"
+                  ng-attr-stroke="{{IndicatorFill}}"
+                  stroke-width="1"></path>
+        </svg>
+        <div class="differential-text-sizing-line" ng-show="config.ShowDifferential" style="position:absolute;" ng-style="{ 'top':differentialPosition.top, 'color':IndicatorFill, 'font-size':indicatorFontSize + 'px', 'left':differentialPosition.left, 'width':differentialPosition.width, 'height':differentialPosition.height}">{{differentialText}}</div>
+        <div ng-show="config.ShowTarget" style="position:absolute; text-align:center;" ng-style="{ 'top':targetPosition.top, 'color': config.ValueStroke, 'left':targetPosition.left, 'width':targetPosition.width, 'height':targetPosition.height, 'font-size':indicatorFontSize}">{{targetText}}</div>
+    </div>
+    
+</div>

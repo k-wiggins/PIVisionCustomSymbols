@@ -1,0 +1,116 @@
+<!--Bullet graph options-->
+<div class="c-side-pane t-toolbar">
+    <span class="config-section-header">Bullet Graph Options</span>
+</div>
+
+<div class="config-option-format">
+
+    <label class="flex-align-center">
+        <input type="checkbox" class="c-config-checkbox"
+               ng-model="config.ShowComparisonValue">Show Comparison Value?<br />
+    </label>
+    <div ng-show="config.ShowComparisonValue">
+        Comparison Value <input type="number" ng-model="config.ComparisonValue">%
+        
+    <!--<pv-color-picker id="ComparisonValueFill" ng-model="config.ComparisonValueColor"></pv-color-picker>-->
+    </div>
+    <br>
+    <br>
+        Good range value <input type="number" ng-model="config.GoodRange" max="100" min="0">%
+    <br>
+    <br>
+        Warning range value <input type="number" ng-model="config.WarningRange" max="100" min="0">%
+    <br>
+    <br>
+        Bad range value <input type="number" ng-model="config.BadRange" max="100" min="0">%
+</div>
+
+<!--Rest of bar graph options-->
+<div class="c-side-pane t-toolbar">
+    <span class="config-section-header">{{::res.LinearGaugeConfigBarFill}}</span>
+</div>
+
+<div class="config-option-format">
+    <pv-color-picker id="fill" ng-model="config.Fill"></pv-color-picker>
+</div>
+
+<div class="c-side-pane t-toolbar">
+    <span class="config-section-header">{{::res.LinearGaugeConfigBarBackgroundFill}}</span>
+</div>
+<div class="config-option-format">
+    <pv-color-picker id="background" ng-model="config.Background"></pv-color-picker>
+</div>
+
+<div class="c-side-pane t-toolbar">
+    <span class="config-section-header">{{::res.LinearGaugeConfigStroke}}</span>
+</div>
+<div class="config-option-format">
+    <pv-color-picker id="stroke" ng-model="config.Stroke"></pv-color-picker>
+</div>
+
+<div class="config-option-single-row config-option-slider" id="weight">
+    <div class="config-label">{{::res.WeightKeyword}}</div>
+    <input type="range" ng-model="config.StrokeWidth" min="2" max="12" class="config-option-range" title="{{config.StrokeWidth}}"
+    />
+</div>
+<br />
+
+<div class="c-side-pane t-toolbar">
+    <span class="config-section-header">{{::res.ValueTextColorKeyword}}</span>
+</div>
+<div class="config-option-format">
+    <pv-color-picker id="value-stroke" options="{ defaultPalette: 'basic', noColorOption: true }" ng-model="config['ValueStroke']"></pv-color-picker>
+</div>
+
+<div class="c-side-pane t-toolbar">
+    <span class="config-section-header">Label {{::res.ValueConfigTextVisibility}}</span>
+</div>
+<div class="c-config-content-vertical">
+    <label class="flex-align-center">
+        <input type="checkbox" class="c-config-checkbox"
+               ng-model="config.ShowLabel">{{::res.ValueConfigLabel}}<br />
+    </label>
+    <div class="inplace-combobox-wrapper" ng-if="config.ShowLabel">
+        <inplace-combo-box config="config" runtime-data="runtimeData"></inplace-combo-box>
+    </div>
+
+    <label class="flex-align-center" style="margin-top: 8px">
+        <input type="checkbox" class="c-config-checkbox"
+               ng-model="config.ShowValue">{{::res.ValueConfigValueKeyword}}<br />
+    </label>
+
+    <label class="flex-align-center" ng-if="config.ShowValue" style="margin-top: 8px">
+        <input type="checkbox" class="c-config-checkbox"
+               ng-model="config.ShowUOM">{{::res.ValueConfigUom}}<br />
+    </label>
+
+    <label class="flex-align-center" style="margin-top: 8px">
+        <input type="checkbox" class="c-config-checkbox"
+               ng-model="config.ShowComparison">Show Comparison Value<br />
+    </label>
+</div>
+
+<div ng-if="runtimeData.metaData">
+    <div class="c-side-pane t-toolbar">
+        <span class="config-section-header">{{::res.LinearGaugeConfigScaleLimitsTitle}}</span>
+    </div>
+    <div style="font-size: 14px; margin-left: 20px; margin-top:10px;">
+        <label class="flex-align-center">
+            <input type="checkbox" class="c-config-checkbox" style="margin-left:0;"
+                   ng-click="def.configChangeScaleSettings(config, runtimeData)"
+                   ng-checked="!config.ValueScaleSettings">{{::res.LinearGaugeConfigScaleUseDefaults}}<br />
+        </label>
+        <div ng-if="config.ValueScaleSettings !== undefined && def.typeName === 'verticalgauge'">
+            <pv-scale-limit-input label="{{::res.LinearGaugeConfigScaleTop}}" limit="MaxValue" config="config" runtime-data="runtimeData"
+                update="update()" />
+            <pv-scale-limit-input label="{{::res.LinearGaugeConfigScaleBottom}}" limit="MinValue" config="config" runtime-data="runtimeData"
+                update="update()" />
+        </div>
+        <div ng-if="config.ValueScaleSettings !== undefined && def.typeName === 'horizontalgauge'">
+            <pv-scale-limit-input label="{{::res.LinearGaugeConfigScaleLeft}}" limit="MinValue" config="config" runtime-data="runtimeData"
+                update="update()" />
+            <pv-scale-limit-input label="{{::res.LinearGaugeConfigScaleRight}}" limit="MaxValue" config="config" runtime-data="runtimeData"
+                update="update()" />
+        </div>
+    </div>
+</div>
